@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariana's Qubit on a Stick</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        .status-indicator.connected {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+        
+        .status-indicator.disconnected {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger-color);
+        }
+        
+        .status-indicator i {
+            font-size: 1rem;
+        }
+        
+        .container {
+            padding: 2rem;
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .wifi-list {
+            margin-top: 2rem;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .wifi-list-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .wifi-list-header h2 {
+            font-size: 1.2rem;
+        }
+        
+        .wifi-list-content {
+            padding: 1rem 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .wifi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .wifi-item:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .wifi-item:last-child {
+            border-bottom: none;
+        }
+        
+        .wifi-name {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .wifi-signal {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .lock-icon {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+        
+        .signal-bars {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .signal-bar {
+            width: 3px;
+            background-color: var(--primary-color);
+            border-radius: 1px;
+        }
+        
+        .signal-bar:nth-child(1) { height: 6px; }
+        .signal-bar:nth-child(2) { height: 9px; }
+        .signal-bar:nth-child(3) { height: 12px; }
+        .signal-bar:nth-child(4) { height: 15px; }
+        .signal-bar:nth-child(5) { height: 18px; }
+        
+        .signal-bar.inactive {
+            background-color: rgba(52, 152, 219, 0.3);
+        }
+        
+        .connect-button {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .connect-button.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .connect-button.enabled:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(52, 152, 219, 0.2);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .refresh-indicator {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Mariana's Qubit on a Stick</h1>
+        <p>Connect to a wireless network</p>
+        <div class="status-container">
+            <div id="marianaStatus" class="status-indicator disconnected">
+                Mariana not connected
+            </div>
+            <div id="wifiStatus" class="status-indicator disconnected">
+                WiFi not connected
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="wifi-list">
+            <div class="wifi-list-header">
+                <h2>Available Networks</h2>
+                <span id="refreshIndicator"></span>
+            </div>
+            <div id="wifiListContent" class="wifi-list-content">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+        
+        <button id="continueButton" class="connect-button">
+            Continue to Website
+        </button>
+    </div>
+
+    <script>
+        // UI elements
+        const wifiListContent = document.getElementById('wifiListContent');
+        const marianaStatus = document.getElementById('marianaStatus');
+        const wifiStatus = document.getElementById('wifiStatus');
+        const continueButton = document.getElementById('continueButton');
+        const refreshIndicator = document.getElementById('refreshIndicator');
+        
+        // State variables
+        let isRefreshing = false;
+        let lastNetworks = [];
+        
+        // Function to fetch available networks
+        async function fetchNetworks() {
+            try {
+                const response = await fetch('/networks');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch networks');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching networks:', error);
+                return [];
+            }
+        }
+        
+        // Function to fetch Mariana connection status
+        async function fetchMarianaStatus() {
+            try {
+                const response = await fetch('/marconn');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Mariana status');
+                }
+                const text = await response.text();
+                return text.trim() === 'true';
+            } catch (error) {
+                console.error('Error fetching Mariana status:', error);
+                return false;
+            }
+        }
+        
+        // Function to fetch WiFi name
+        async function fetchWifiName() {
+            try {
+                const response = await fetch('/wifiname');
+                if (!response.ok) {
+                    return null;
+                }
+                return await response.text();
+            } catch (error) {
+                console.error('Error fetching WiFi name:', error);
+                return null;
+            }
+        }
+        
+        // Function to connect to a network
+        async function connectToNetwork(ssid, password = null) {
+            try {
+                const formData = new FormData();
+                formData.append('ssid', ssid);
+                if (password !== null) {
+                    formData.append('password', password);
+                }
+                
+                const response = await fetch('/connect', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to connect to network');
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error connecting to network:', error);
+                return false;
+            }
+        }
+        
+        // Function to render signal bars
+        function renderSignalBars(bars) {
+            let html = '<div class="signal-bars">';
+            for (let i = 1; i <= 5; i++) {
+                html += `<div class="signal-bar ${i <= bars ? '' : 'inactive'}"></div>`;
+            }
+            html += '</div>';
+            return html;
+        }
+        
+        // Function to render networks
+        function renderNetworks(networks) {
+            if (!networks || networks.length === 0) {
+                return `<div class="wifi-item">No networks found</div>`;
+            }
+            
+            return networks.map(network => {
+                const lockIcon = network['Password Required'] ? 
+                    '<span class="lock-icon">🔒</span>' : '';
+                
+                return `
+                    <div class="wifi-item" data-ssid="${network.SSID}" data-requires-password="${network['Password Required']}">
+                        <div class="wifi-name">
+                            ${network.SSID} ${lockIcon}
+                        </div>
+                        <div class="wifi-signal">
+                            ${renderSignalBars(network['Signal Bars'])}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Function to update UI
+        function updateUI(networks, isMarianaConnected, connectedWifi) {
+            // Update networks list if changed
+            if (JSON.stringify(networks) !== JSON.stringify(lastNetworks)) {
+                wifiListContent.innerHTML = renderNetworks(networks);
+                lastNetworks = networks;
+                
+                // Add click handlers for network items
+                document.querySelectorAll('.wifi-item').forEach(item => {
+                    item.addEventListener('click', async () => {
+                        const ssid = item.dataset.ssid;
+                        const requiresPassword = item.dataset.requiresPassword === 'true';
+                        
+                        let password = null;
+                        if (requiresPassword) {
+                            password = prompt(`Enter password for "${ssid}":`, '');
+                            if (password === null) {
+                                return; // User cancelled
+                            }
+                        }
+                        
+                        // Attempt to connect
+                        await connectToNetwork(ssid, password);
+                        // Data will refresh on next cycle
+                    });
+                });
+            }
+            
+            // Update Mariana status
+            if (isMarianaConnected) {
+                marianaStatus.textContent = 'Mariana Connected';
+                marianaStatus.className = 'status-indicator connected';
+                continueButton.classList.add('enabled');
+            } else {
+                marianaStatus.textContent = 'Mariana not connected';
+                marianaStatus.className = 'status-indicator disconnected';
+                continueButton.classList.remove('enabled');
+            }
+            
+            // Update WiFi status
+            if (connectedWifi) {
+                wifiStatus.textContent = `Connected to: ${connectedWifi}`;
+                wifiStatus.className = 'status-indicator connected';
+            } else {
+                wifiStatus.textContent = 'WiFi not connected';
+                wifiStatus.className = 'status-indicator disconnected';
+            }
+        }
+        
+        // Function to refresh all data
+        async function refreshData() {
+            if (isRefreshing) return;
+            
+            isRefreshing = true;
+            refreshIndicator.className = 'refresh-indicator';
+            
+            try {
+                const [networks, isMarianaConnected, connectedWifi] = await Promise.all([
+                    fetchNetworks(),
+                    fetchMarianaStatus(),
+                    fetchWifiName()
+                ]);
+                
+                updateUI(networks, isMarianaConnected, connectedWifi);
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+            } finally {
+                isRefreshing = false;
+                refreshIndicator.className = '';
+            }
+        }
+        
+        // Add event listener to continue button
+        continueButton.addEventListener('click', () => {
+            window.location.href = 'http://example.com';
+        });
+        
+        // Initial data load
+        refreshData();
+        
+        // Set up refresh interval
+        setInterval(refreshData, 3000);
+    </script>
+</body>
+</html>

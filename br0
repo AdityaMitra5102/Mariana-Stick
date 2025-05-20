@@ -1,0 +1,17 @@
+dhcp-authoritative
+dhcp-rapid-commit
+no-ping
+interface=br0
+dhcp-range=10.55.0.2,10.55.0.6,255.255.255.248,1h
+dhcp-option=3
+leasefile-ro
+address=/.mariana/10.55.0.1
+
+address=/msftconnecttest.com/10.55.0.1
+address=/www.msftconnecttest.com/10.55.0.1
+address=/connectivitycheck.gstatic.com/10.55.0.1
+address=/clients3.google.com/10.55.0.1
+address=/captive.apple.com/10.55.0.1
+address=/network-test.debian.org/10.55.0.1
+address=/nmcheck.gnome.org/10.55.0.1
+address=/connectivitycheck.android.com/10.55.0.1

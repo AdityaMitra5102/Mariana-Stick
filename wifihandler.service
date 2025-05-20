@@ -1,0 +1,16 @@
+[Unit]
+Description=WifiHandler
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+WorkingDirectory=/etc/mar/Mariana-Stick
+ExecStartPre=/usr/bin/git pull
+ExecStart=/usr/bin/python3 /etc/mar/Mariana-Stick/wifihandler.py
+
+[Install]
+WantedBy=multi-user.target
