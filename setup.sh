@@ -29,7 +29,7 @@ git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
 cd Mariana-Stick
 sudo cp -f config.txt /boot/firmware/config.txt
 sudo cp -f cmdline.txt /boot/firmware/cmdline.txt
-sudo cp -f modules /etc/modules
+sudo cp -f modules /etc/
 sudo cp -f usb-gadget.sh /usr/local/sbin/usb-gadget.sh
 sudo chmod +x /usr/local/sbin/usb-gadget.sh
 sudo cp -f usbgadget.service /lib/systemd/system/usbgadget.service
@@ -42,8 +42,6 @@ sudo nmcli con add type bridge-slave ifname usb1 master br0
 sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.0.1/24
 
 sudo cp -f br0 /etc/dnsmasq.d/br0
-
-sudo apt install -y --fix-broken
 
 sudo a2enmod proxy
 sudo a2enmod proxy_http
