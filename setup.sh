@@ -6,6 +6,8 @@ sudo apt install -y python3.12
 sudo rm -rf $(which python3)
 sudo ln -sT $(which python3.12) /usr/bin/python3
 curl https://bootstrap.pypa.io/get-pip.py | python3
+sudo apt update
+sudo apt install -y --fix-broken
 curl https://AdityaMitra5102.github.io/Project-Mariana/setup.sh | sudo sh
 sudo service mariana stop
 python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
@@ -17,6 +19,7 @@ sudo touch /root/Downloads/CargoShip/CargoShipActive
 sudo chmod -R 777 /root/Downloads/CargoShip
 
 cd /etc/mar
+sudo rm -rf Mariana-Stick
 git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
 cd Mariana-Stick
 sudo cp -f config.txt /etc/firmware/config.txt

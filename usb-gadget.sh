@@ -50,10 +50,8 @@ ln -s configs/c.2 os_desc
 udevadm settle -t 5 || :
 ls /sys/class/udc > UDC
  
-sleep 5
  
 nmcli connection up bridge-br0
 nmcli connection up bridge-slave-usb0
 nmcli connection up bridge-slave-usb1
-sleep 5
 service dnsmasq restart
