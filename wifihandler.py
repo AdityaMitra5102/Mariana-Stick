@@ -1,4 +1,5 @@
 from flask import *
+import requests
 from wifiscan import *
 
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def wifiname():
 	
 @app.route('/marconn')
 def marconn():
-	return 'true'
+	return requests.get('http://localhost:8000/active').text
 	
 if __name__=='__main__':
 	app.run('0.0.0.0', 5000)
