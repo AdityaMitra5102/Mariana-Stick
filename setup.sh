@@ -1,5 +1,5 @@
 sudo apt update
-sudo apt -y upgrade
+#sudo apt -y upgrade
 #sudo rpi-update
 sudo apt install -y apache2
 sudo apt install -y dnsmasq
