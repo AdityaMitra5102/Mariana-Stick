@@ -19,7 +19,7 @@ sudo touch /root/Downloads/CargoShip/CargoShipActive
 sudo chmod -R 777 /root/Downloads/CargoShip
 
 cd /etc/mar
-sudo rm -rf Mariana-Stick
+sudo rm -rf /etc/mar/Mariana-Stick
 git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
 cd Mariana-Stick
 sudo cp -f config.txt /etc/firmware/config.txt
