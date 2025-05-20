@@ -3,6 +3,7 @@ sudo apt -y upgrade
 sudo rpi-update
 sudo apt install -y apache2
 sudo apt install -y dnsmasq
+sudo apt install -y git
 echo "deb [trusted=yes] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/ jammy main" | sudo tee /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-lunar.list
 sudo apt update
 sudo apt install -y python3.12
@@ -12,12 +13,19 @@ curl https://bootstrap.pypa.io/get-pip.py | python3
 sudo apt update
 sudo apt install -y --fix-broken
 
+sudo mkdir -p /etc/mar
+sudo touch /etc/mar/test
+chmod -R 777 /etc/mar
+cd /etc/mar
+sudo apt-get update
+rm -rf /etc/mar/Project-Mariana
 
-curl https://AdityaMitra5102.github.io/Project-Mariana/setup.sh | sudo sh
-sudo service mariana stop
+git clone https://github.com/AdityaMitra5102/Project-Mariana.git
+sudo cp Project-Mariana/mariana.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable mariana
 python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
 sudo python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
-sudo service mariana restart
 
 sudo mkdir -p /root/Downloads/CargoShip
 sudo touch /root/Downloads/CargoShip/CargoShipActive
