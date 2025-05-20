@@ -7,9 +7,9 @@ sudo apt install -y git
 echo "deb [trusted=yes] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/ jammy main" | sudo tee /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-lunar.list
 sudo apt update
 sudo apt install -y python3.12
-sudo rm -rf $(which python3)
-sudo ln -sT $(which python3.12) /usr/bin/python3
-curl https://bootstrap.pypa.io/get-pip.py | python3
+
+sudo ln -sT $(which python3.12) /usr/bin/python3.12
+curl https://bootstrap.pypa.io/get-pip.py | python3.12
 sudo apt update
 sudo apt install -y --fix-broken
 
@@ -24,8 +24,8 @@ git clone https://github.com/AdityaMitra5102/Project-Mariana.git
 sudo cp Project-Mariana/mariana.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable mariana
-python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
-sudo python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
+
+sudo python3.12 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
 
 sudo mkdir -p /root/Downloads/CargoShip
 sudo touch /root/Downloads/CargoShip/CargoShipActive
