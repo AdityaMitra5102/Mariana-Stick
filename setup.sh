@@ -24,8 +24,8 @@ cd /etc/mar
 sudo rm -rf /etc/mar/Mariana-Stick
 git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
 cd Mariana-Stick
-sudo cp -f config.txt /etc/firmware/config.txt
-sudo cp -f cmdline.txt /etc/firmware/cmdline.txt
+sudo cp -f config.txt /boot/firmware/config.txt
+sudo cp -f cmdline.txt /boot/firmware/cmdline.txt
 sudo cp -f modules /etc/modules
 sudo cp -f usb-gadget.sh /usr/local/sbin/usb-gadget.sh
 sudo chmod +x /usr/local/sbin/usb-gadget.sh
