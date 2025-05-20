@@ -40,6 +40,7 @@ sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.
 sudo apt install -y dnsmasq
 sudo cp -f br0 /etc/dnsmasq.d/br0
 
+sudo apt install -y --fix-broken
 sudo apt install -y apache2
 sudo a2enmod proxy
 sudo a2enmod proxy_http
