@@ -21,9 +21,7 @@ sudo apt-get update
 rm -rf /etc/mar/Project-Mariana
 
 git clone https://github.com/AdityaMitra5102/Project-Mariana.git
-sudo cp Project-Mariana/mariana.service /etc/systemd/system
-sudo systemctl daemon-reload
-sudo systemctl enable mariana
+
 
 sudo python3.12 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
 
@@ -35,6 +33,10 @@ cd /etc/mar
 sudo rm -rf /etc/mar/Mariana-Stick
 git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
 cd Mariana-Stick
+sudo cp -f mariana.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable mariana
+
 sudo cp -f config.txt /boot/firmware/config.txt
 sudo cp -f cmdline.txt /boot/firmware/cmdline.txt
 sudo cp -f modules /etc/
