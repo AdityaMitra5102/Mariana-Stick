@@ -12,6 +12,9 @@ python3 -m pip install -r /etc/mar/requirements.txt --break-system-package --upg
 sudo python3 -m pip install -r /etc/mar/requirements.txt --break-system-package --upgrade
 sudo service mariana restart
 
+cd /etc/mar
+git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
+cd Mariana-Stick
 sudo cp -f config.txt /etc/firmware/config.txt
 sudo cp -f cmdline.txt /etc/firmware/cmdline.txt
 sudo cp -f modules /etc/modules
@@ -34,3 +37,7 @@ sudo a2enmod proxy_http
 sudo a2enmod proxy_balancer
 sudo a2enmod lbmethod_byrequests
 sudo cp -f 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
+sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
+sudo systemctl daemon-reload
+sudo systemctl enable wifihandler.service
