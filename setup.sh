@@ -12,6 +12,10 @@ python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-syst
 sudo python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
 sudo service mariana restart
 
+sudo mkdir -p /root/Downloads/CargoShip
+sudo touch /root/Downloads/CargoShip/CargoShipActive
+sudo chmod -R 777 /root/Downloads/CargoShip
+
 cd /etc/mar
 git clone https://github.com/AdityaMitra5102/Mariana-Stick.git
 cd Mariana-Stick
@@ -37,6 +41,7 @@ sudo a2enmod proxy_http
 sudo a2enmod proxy_balancer
 sudo a2enmod lbmethod_byrequests
 sudo cp -f 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
