@@ -49,3 +49,4 @@ sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
+sudo poweroff
