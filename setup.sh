@@ -1,5 +1,8 @@
 sudo apt update
 sudo apt -y upgrade
+sudo rpi-update
+sudo apt install -y apache2
+sudo apt install -y dnsmasq
 echo "deb [trusted=yes] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/ jammy main" | sudo tee /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-lunar.list
 sudo apt update
 sudo apt install -y python3.12
@@ -8,7 +11,7 @@ sudo ln -sT $(which python3.12) /usr/bin/python3
 curl https://bootstrap.pypa.io/get-pip.py | python3
 sudo apt update
 sudo apt install -y --fix-broken
-sudo rpi-update
+
 
 curl https://AdityaMitra5102.github.io/Project-Mariana/setup.sh | sudo sh
 sudo service mariana stop
@@ -37,11 +40,11 @@ sudo nmcli con add type bridge ifname br0
 sudo nmcli con add type bridge-slave ifname usb0 master br0
 sudo nmcli con add type bridge-slave ifname usb1 master br0
 sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.0.1/24
-sudo apt install -y dnsmasq
+
 sudo cp -f br0 /etc/dnsmasq.d/br0
 
 sudo apt install -y --fix-broken
-sudo apt install -y apache2
+
 sudo a2enmod proxy
 sudo a2enmod proxy_http
 sudo a2enmod proxy_balancer
