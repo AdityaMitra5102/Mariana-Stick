@@ -8,6 +8,8 @@ sudo ln -sT $(which python3.12) /usr/bin/python3
 curl https://bootstrap.pypa.io/get-pip.py | python3
 sudo apt update
 sudo apt install -y --fix-broken
+sudo rpi-update
+
 curl https://AdityaMitra5102.github.io/Project-Mariana/setup.sh | sudo sh
 sudo service mariana stop
 python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
