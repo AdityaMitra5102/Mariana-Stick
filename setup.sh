@@ -1,6 +1,6 @@
 sudo apt update
 sudo apt -y upgrade
-sudo rpi-update
+#sudo rpi-update
 sudo apt install -y apache2
 sudo apt install -y dnsmasq
 sudo apt install -y git
@@ -63,4 +63,4 @@ sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
-sudo poweroff
+sudo reboot
