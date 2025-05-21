@@ -41,8 +41,7 @@ sudo systemctl enable mariana
 echo "dtoverlay=dwc2" | sudo tee -a /boot/firmware/config.txt
 echo "dwc2" | sudo tee -a /etc/modules
 echo "libcomposite" | sudo tee -a /etc/modules
-sudo cp -f cmdline.txt /boot/firmware/cmdline.txt
-sudo chmod 777 /boot/firmware/cmdline.txt
+echo -n " modules-load=dwc2,libcomposite" | sudo tee -a /boot/firmware/cmdline.txt
 
 sudo cp -f usb-gadget.sh /usr/local/sbin/usb-gadget.sh
 sudo chmod +x /usr/local/sbin/usb-gadget.sh
