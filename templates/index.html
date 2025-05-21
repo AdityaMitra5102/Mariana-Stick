@@ -167,11 +167,11 @@
             border-radius: 1px;
         }
         
-        .signal-bar:nth-child(1) { height: 18px; }
-        .signal-bar:nth-child(2) { height: 15px; }
+        .signal-bar:nth-child(1) { height: 6px; }
+        .signal-bar:nth-child(2) { height: 9px; }
         .signal-bar:nth-child(3) { height: 12px; }
-        .signal-bar:nth-child(4) { height: 9px; }
-        .signal-bar:nth-child(5) { height: 6px; }
+        .signal-bar:nth-child(4) { height: 15px; }
+        .signal-bar:nth-child(5) { height: 18px; }
         
         .signal-bar.inactive {
             background-color: rgba(52, 152, 219, 0.3);
@@ -429,10 +429,10 @@
             }
         }
         
-        // Function to render signal bars (fixed to show tallest bar first)
+        // Function to render signal bars (fixed to show smallest bar first)
         function renderSignalBars(bars) {
             let html = '<div class="signal-bars">';
-            for (let i = 5; i >= 1; i--) {
+            for (let i = 1; i <= 5; i++) {
                 html += `<div class="signal-bar ${i <= bars ? '' : 'inactive'}"></div>`;
             }
             html += '</div>';
