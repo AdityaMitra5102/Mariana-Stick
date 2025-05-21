@@ -9,7 +9,8 @@ Restart=always
 RestartSec=1
 User=root
 WorkingDirectory=/etc/mar/Mariana-Stick
-ExecStartPre=/usr/bin/git pull
+ExecStartPre=rfkill unblock all
+ExecStartPre=ifconfig wlan0 up
 ExecStart=/usr/bin/python3.12 /etc/mar/Mariana-Stick/wifihandler.py
 
 [Install]
