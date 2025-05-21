@@ -63,6 +63,11 @@ sudo a2enmod lbmethod_byrequests
 sudo cp -f 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 
+sudo chmod o+rx /root
+sudo chmod o+rx /root/Downloads
+sudo chmod -R o+rx /root/Downloads/CargoShip
+sudo chown -R www-data:www-data /var/www
+
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
