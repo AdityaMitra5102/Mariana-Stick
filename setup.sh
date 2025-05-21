@@ -41,7 +41,7 @@ sudo systemctl enable mariana
 echo "dtoverlay=dwc2" | sudo tee -a /boot/firmware/config.txt
 echo "dwc2" | sudo tee -a /etc/modules
 echo "libcomposite" | sudo tee -a /etc/modules
-echo -n " modules-load=dwc2,libcomposite" | sudo tee -a /boot/firmware/cmdline.txt
+echo -n " modules-load=dwc2,libcomposite cfg80211.ieee80211_regdom=IN" | sudo tee -a /boot/firmware/cmdline.txt
 
 sudo cp -f usb-gadget.sh /usr/local/sbin/usb-gadget.sh
 sudo chmod +x /usr/local/sbin/usb-gadget.sh
@@ -66,5 +66,4 @@ sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
-sudo raspi-config
 sudo reboot
