@@ -222,17 +222,30 @@
         
         .disconnect-button {
             background-color: var(--danger-color);
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
+            color: white;
+            width: 24px;
+            height: 24px;
+            font-size: 16px;
+            border-radius: 50%;
             display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0;
+            transition: all 0.2s ease;
         }
         
         .disconnect-button:hover {
             background-color: #c0392b;
+            transform: scale(1.1);
         }
         
         .disconnect-button.visible {
-            display: inline-flex;
+            display: flex;
         }
         
         .loading {
@@ -276,6 +289,9 @@
     <header class="header">
         <h1>Mariana's Qubit on a Stick</h1>
         <p>Connect to a wireless network</p>
+        <button id="disconnectButton" class="disconnect-button">
+            ×
+        </button>
         <div class="status-container">
             <div id="marianaStatus" class="status-indicator disconnected">
                 Mariana not connected
@@ -283,9 +299,6 @@
             <div id="wifiStatus" class="status-indicator disconnected">
                 WiFi not connected
             </div>
-            <button id="disconnectButton" class="button disconnect-button">
-                Disconnect WiFi
-            </button>
         </div>
     </header>
     
