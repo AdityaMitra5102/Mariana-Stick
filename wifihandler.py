@@ -42,4 +42,4 @@ def marconn():
 	return requests.get('http://localhost:8000/active').text
 	
 if __name__=='__main__':
-	app.run('0.0.0.0', 5000)
+	app.run('10.55.0.1', 5000)
