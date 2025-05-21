@@ -37,9 +37,13 @@ sudo cp -f mariana.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable mariana
 
-sudo cp -f config.txt /boot/firmware/config.txt
+
+echo "dtoverlay=dwc2" | sudo tee -a /boot/firmware/config.txt
+echo "dwc2" | sudo tee -a /etc/modules
+echo "libcomposite" | sudo tee -a /etc/modules
 sudo cp -f cmdline.txt /boot/firmware/cmdline.txt
-sudo cp -f modules /etc/
+sudo chmod 777 /boot/firmware/cmdline.txt
+
 sudo cp -f usb-gadget.sh /usr/local/sbin/usb-gadget.sh
 sudo chmod +x /usr/local/sbin/usb-gadget.sh
 sudo cp -f usbgadget.service /lib/systemd/system/usbgadget.service
@@ -63,4 +67,5 @@ sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
+sudo raspi-config
 sudo reboot
