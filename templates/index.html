@@ -541,6 +541,7 @@
         // Add event listener to disconnect button
         disconnectButton.addEventListener('click', async () => {
             if (currentConnectedSsid) {
+            	alert("Wi-Fi will be disconnected");
                 await disconnectFromNetwork(currentConnectedSsid);
                 // Data will refresh on next cycle
             }
