@@ -60,6 +60,7 @@ sudo a2enmod proxy
 sudo a2enmod proxy_http
 sudo a2enmod proxy_balancer
 sudo a2enmod lbmethod_byrequests
+sudo a2enmod rewrite
 sudo cp -f 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 sudo ln -sT /root/Downloads/CargoShip /var/www/cargo
 
