@@ -10,7 +10,7 @@ RestartSec=1
 User=root
 WorkingDirectory=/etc/mar/Mariana-Stick
 ExecStartPre=/usr/bin/git pull
-ExecStart=/usr/bin/python3 /etc/mar/Mariana-Stick/wifihandler.py
+ExecStart=/usr/bin/python3.12 /etc/mar/Mariana-Stick/wifihandler.py
 
 [Install]
 WantedBy=multi-user.target
