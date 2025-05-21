@@ -11,7 +11,7 @@ User=root
 WorkingDirectory=/etc/mar/Mariana-Stick
 ExecStartPre=rfkill unblock all
 ExecStartPre=ifconfig wlan0 up
-ExecStartPre=systemctl restart NetworkManager
+ExecStartPre=nmcli radio wifi on
 ExecStart=/usr/bin/python3.12 /etc/mar/Mariana-Stick/wifihandler.py
 
 [Install]
