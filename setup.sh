@@ -4,6 +4,8 @@ sudo apt update
 sudo apt install -y apache2
 sudo apt install -y dnsmasq
 sudo apt install -y git
+sudo apt install -y ufw
+
 echo "deb [trusted=yes] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/ jammy main" | sudo tee /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-lunar.list
 sudo apt update
 sudo apt install -y python3.12
@@ -53,7 +55,6 @@ sudo nmcli con add type bridge ifname br0
 sudo nmcli con add type bridge-slave ifname usb0 master br0
 sudo nmcli con add type bridge-slave ifname usb1 master br0
 sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.0.1/24
-
 sudo cp -f br0 /etc/dnsmasq.d/br0
 
 sudo a2enmod proxy
@@ -72,4 +73,14 @@ sudo chown -R www-data:www-data /var/www
 sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
+
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow in on usb0
+sudo ufw allow in on usb1
+sudo ufw allow in on br0
+sudo ufw allow 22
+sudo ufw enable --force
+sudo ufw status
+
 sudo poweroff
