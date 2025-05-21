@@ -22,7 +22,7 @@ def connect():
 		return 'Fail', 400
 
 @app.route('/disconnect', methods=['POST'])
-def connect():
+def disconnect():
 	ssid=request.form.get('ssid')
 	if disconnect_wifi(ssid):
 		return 'Success'
