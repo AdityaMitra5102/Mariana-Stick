@@ -20,6 +20,15 @@ def connect():
 		return 'Success'
 	else:
 		return 'Fail', 400
+
+@app.route('/disconnect', methods=['POST'])
+def connect():
+	ssid=request.form.get('ssid')
+	if disconnect_wifi(ssid):
+		return 'Success'
+	else:
+		return 'Fail', 400
+
 		
 @app.route('/wifiname')
 def wifiname():

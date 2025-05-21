@@ -158,6 +158,7 @@
         .signal-bars {
             display: flex;
             gap: 2px;
+            align-items: flex-end;
         }
         
         .signal-bar {
@@ -166,18 +167,17 @@
             border-radius: 1px;
         }
         
-        .signal-bar:nth-child(1) { height: 6px; }
-        .signal-bar:nth-child(2) { height: 9px; }
+        .signal-bar:nth-child(1) { height: 18px; }
+        .signal-bar:nth-child(2) { height: 15px; }
         .signal-bar:nth-child(3) { height: 12px; }
-        .signal-bar:nth-child(4) { height: 15px; }
-        .signal-bar:nth-child(5) { height: 18px; }
+        .signal-bar:nth-child(4) { height: 9px; }
+        .signal-bar:nth-child(5) { height: 6px; }
         
         .signal-bar.inactive {
             background-color: rgba(52, 152, 219, 0.3);
         }
         
-        .connect-button {
-            margin-top: 2rem;
+        .button {
             padding: 1rem;
             background-color: var(--primary-color);
             color: white;
@@ -187,6 +187,15 @@
             cursor: pointer;
             width: 100%;
             transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .connect-button {
+            margin-top: 2rem;
             opacity: 0.5;
             pointer-events: none;
         }
@@ -196,10 +205,34 @@
             pointer-events: auto;
         }
         
-        .connect-button.enabled:hover {
+        .connect-button.enabled:hover, .cargo-button:hover {
             background-color: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cargo-button {
+            margin-top: 1rem;
+            background-color: var(--secondary-color);
+        }
+        
+        .cargo-button:hover {
+            background-color: #243342;
+        }
+        
+        .disconnect-button {
+            background-color: var(--danger-color);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            display: none;
+        }
+        
+        .disconnect-button:hover {
+            background-color: #c0392b;
+        }
+        
+        .disconnect-button.visible {
+            display: inline-flex;
         }
         
         .loading {
@@ -233,6 +266,10 @@
             border-radius: 50%;
             margin-left: 8px;
         }
+        
+        .file-icon {
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -246,6 +283,9 @@
             <div id="wifiStatus" class="status-indicator disconnected">
                 WiFi not connected
             </div>
+            <button id="disconnectButton" class="button disconnect-button">
+                Disconnect WiFi
+            </button>
         </div>
     </header>
     
@@ -262,8 +302,12 @@
             </div>
         </div>
         
-        <button id="continueButton" class="connect-button">
+        <button id="continueButton" class="button connect-button">
             Continue to Mariana
+        </button>
+        
+        <button id="cargoButton" class="button cargo-button">
+            <span class="file-icon">📁</span> View CargoShip Received files
         </button>
     </div>
 
@@ -273,11 +317,14 @@
         const marianaStatus = document.getElementById('marianaStatus');
         const wifiStatus = document.getElementById('wifiStatus');
         const continueButton = document.getElementById('continueButton');
+        const cargoButton = document.getElementById('cargoButton');
+        const disconnectButton = document.getElementById('disconnectButton');
         const refreshIndicator = document.getElementById('refreshIndicator');
         
         // State variables
         let isRefreshing = false;
         let lastNetworks = [];
+        let currentConnectedSsid = null;
         
         // Function to fetch available networks
         async function fetchNetworks() {
@@ -347,10 +394,32 @@
             }
         }
         
-        // Function to render signal bars
+        // Function to disconnect from a network
+        async function disconnectFromNetwork(ssid) {
+            try {
+                const formData = new FormData();
+                formData.append('ssid', ssid);
+                
+                const response = await fetch('/disconnect', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to disconnect from network');
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error disconnecting from network:', error);
+                return false;
+            }
+        }
+        
+        // Function to render signal bars (fixed to show tallest bar first)
         function renderSignalBars(bars) {
             let html = '<div class="signal-bars">';
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 5; i >= 1; i--) {
                 html += `<div class="signal-bar ${i <= bars ? '' : 'inactive'}"></div>`;
             }
             html += '</div>';
@@ -419,13 +488,17 @@
                 continueButton.classList.remove('enabled');
             }
             
-            // Update WiFi status
+            // Update WiFi status and show/hide disconnect button
             if (connectedWifi) {
                 wifiStatus.textContent = `Connected to: ${connectedWifi}`;
                 wifiStatus.className = 'status-indicator connected';
+                disconnectButton.classList.add('visible');
+                currentConnectedSsid = connectedWifi;
             } else {
                 wifiStatus.textContent = 'WiFi not connected';
                 wifiStatus.className = 'status-indicator disconnected';
+                disconnectButton.classList.remove('visible');
+                currentConnectedSsid = null;
             }
         }
         
@@ -452,9 +525,22 @@
             }
         }
         
+        // Add event listener to disconnect button
+        disconnectButton.addEventListener('click', async () => {
+            if (currentConnectedSsid) {
+                await disconnectFromNetwork(currentConnectedSsid);
+                // Data will refresh on next cycle
+            }
+        });
+        
         // Add event listener to continue button
         continueButton.addEventListener('click', () => {
             window.location.href = 'http://local.mariana';
+        });
+        
+        // Add event listener to cargo button
+        cargoButton.addEventListener('click', () => {
+            window.location.href = 'http://cargo.cargo';
         });
         
         // Initial data load

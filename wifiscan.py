@@ -66,6 +66,18 @@ def connect_wifi(ssid, password, interface="wlan0"):
         print(f"Failed to connect to {ssid}: {e.stderr.strip()}")
         return False
 
+def disconnect_wifi(ssid, interface="wlan0"):
+    try:
+        # Delete any existing connection for this SSID (optional, helps avoid conflicts)
+        subprocess.run(["nmcli", "connection", "delete", ssid], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        
+        print(f"Disconnected from {ssid} successfully.")
+        return True
+    except subprocess.CalledProcessError as e:
+        
+        return False
+
+
 def get_connected_ssid(interface="wlan0"):
     if is_ethernet_connected():
         return "Wired connectivity"
