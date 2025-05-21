@@ -4,6 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mariana's Qubit on a Stick</title>
+    
+    
+  <style id="INLINE_PEN_STYLESHEET_ID">
+    body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+}
+
+.text {
+  display: inline-block;
+font-family: 'Courier New', Courier, monospace;
+  font-weight: 300;
+  font-size: 45px;
+  text-transform: uppercase;
+  color: #33ff33;
+}
+
+.textsmall {
+  display: inline-block;
+font-family: 'Courier New', Courier, monospace;
+  font-weight: 300;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: #33ff33;
+}
+
+
+.line {
+  background-color: #33ff33;
+  border-radius: 0.125em;
+  height: 0.25em;
+  width: 15em;
+  margin: 0 auto;
+  margin-top: 0.5em;
+  position: relative;
+}
+.line .ball {
+  background-image: radial-gradient(#459BF9, #021e3d);
+  height: 0.75em;
+  width: 0.75em;
+  position: relative;
+  top: -0.25em;
+  animation: travel 3s infinite linear;
+  border-radius: 50%;
+  border-color: red;
+}
+
+.center, .server .disk, .server {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.server {
+  width: 20%;
+  height: 500%;
+  left: 105%;
+  top: -250%;
+  background-color: #054fa0;
+  border-radius: 5px;
+}
+.server:after {
+  right: 5%;
+  animation: blink 0.5s infinite steps(2, end);
+}
+.server:before {
+  left: 5%;
+  animation: blink 1s infinite steps(2, end);
+}
+.server .disk {
+  width: 40%;
+  height: 20%;
+  background-color: #04376e;
+  border-radius: 10%;
+}
+
+.server:after, .server:before {
+  content: "";
+  width: 15%;
+  height: 40%;
+  margin: auto 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 50%;
+}
+
+@keyframes blink {
+  from {
+    background-color: #1480f7;
+  }
+  to {
+    background-color: black;
+  }
+}
+.center {
+  height: 50%;
+  width: 50%;
+  text-align: center;
+}
+
+@keyframes travel {
+  0% {
+    transform: translateX(0.15em);
+  }
+  100% {
+    transform: translateX(14.1em);
+  }
+}
+  </style>
+
     <style>
         :root {
             --primary-color: #3498db;
@@ -21,7 +136,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body {
+        .body2 {
             background-color: var(--light-color);
             color: var(--dark-color);
             min-height: 100vh;
@@ -286,6 +401,31 @@
     </style>
 </head>
 <body>
+<div id="body1" class="body1" style="display:block;">
+  <div class="center">
+  <div class="textsmall">The internet of freedom awaits</div>
+<br><br>
+  <div class="text">connecting</div>
+  <div class="line">
+    <div class="ball">
+  </div>
+  <div class="server">
+    <div class="disk"></div>
+  </div>
+ </div>
+  <div class="textsmall">to Mariana&apos;s Qubit</div>
+  <br><br>
+
+  <br><br>
+  
+  
+   
+<div class="textsmall">Cryptane</div>
+
+</div>
+</div>
+
+<div id="body2" class="body2" style="display:none;">
     <header class="header">
         <h1>Mariana's Qubit on a Stick</h1>
         <p>Connect to a wireless network</p>
@@ -563,5 +703,33 @@
         // Set up refresh interval
         setInterval(refreshData, 3000);
     </script>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // This ensures the script runs only once when the DOM is fully loaded
+  
+  console.log('Script loaded, waiting 5 seconds to swap displays...');
+  
+  // Set a timeout to swap the display properties after 5 seconds
+  setTimeout(function() {
+    // Get references to both elements
+    const body1Element = document.getElementById('body1');
+    const body2Element = document.getElementById('body2');
+    
+    // Check if elements exist before manipulating them
+    if (body1Element && body2Element) {
+      console.log('Swapping display properties now');
+      
+      // Change display properties
+      body1Element.style.display = 'none';
+      body2Element.style.display = 'block';
+      
+      console.log('Display properties swapped successfully');
+    } else {
+      console.error('Could not find one or both elements');
+    }
+  }, 5000); // 5000 milliseconds = 5 seconds
+})
+</script>
 </body>
 </html>
