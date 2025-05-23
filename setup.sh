@@ -56,6 +56,7 @@ sudo nmcli con add type bridge-slave ifname usb0 master br0
 sudo nmcli con add type bridge-slave ifname usb1 master br0
 sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.0.1/24
 sudo nmcli con delete bridge-slave-eth0
+sudo nmcli con add type ethernet ifname eth0
 sudo cp -f br0 /etc/dnsmasq.d/br0
 sudo touch /etc/mar/stickmode
 
