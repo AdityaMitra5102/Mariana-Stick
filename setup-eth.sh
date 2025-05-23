@@ -44,6 +44,7 @@ sudo nmcli con add type bridge-slave ifname eth0 master br0
 sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.0.1/24
 sudo cp -f br0 /etc/dnsmasq.d/br0
 sudo touch /etc/mar/stickmode
+sudo touch /etc/mar/ethmode
 
 sudo a2enmod proxy
 sudo a2enmod proxy_http
