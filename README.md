@@ -11,6 +11,7 @@ curl https://AdityaMitra5102.github.io/Mariana-Stick/setup-persistent.sh | sudo 
 
 # Ethernet Setup
 ⚠️ Connect only to host. Not to a network swtich directly.
+## Ephemeral setup
 ```
 curl https://AdityaMitra5102.github.io/Mariana-Stick/setup-eth-eph.sh | sudo bash
 ```
