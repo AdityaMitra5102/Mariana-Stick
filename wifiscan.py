@@ -1,5 +1,6 @@
 import subprocess
 import re
+import os
 
 def signal_to_bars(dbm):
     """Convert signal strength (dBm) to 1–5 bars."""
@@ -95,6 +96,8 @@ def get_connected_ssid(interface="wlan0"):
         return None
 
 def is_ethernet_connected(interface="eth0"):
+    if os.path.exists('/etc/mar/ethmode'):
+        return False
     try:
         result = subprocess.run(
             ["cat", f"/sys/class/net/{interface}/carrier"],
