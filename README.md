@@ -31,3 +31,5 @@ curl https://AdityaMitra5102.github.io/Mariana-Stick/setup-eth-eph.sh | sudo bas
 ```
 curl https://AdityaMitra5102.github.io/Mariana-Stick/setup-eth-pers.sh | sudo bash
 ```
+
+# ⚠️⚠️ DO TURN OFF WIFI OR OTHER INTERNET CONNECTIVITY IN HOST PC TO UTILIZE INTELLIGENT EXIT PROXY ON MARIANA. OTHERWISE YOU RISK YOUR PRIVACY.
