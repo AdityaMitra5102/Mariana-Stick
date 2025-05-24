@@ -9,12 +9,12 @@ Restart=always
 RestartSec=1
 User=root
 WorkingDirectory=/etc/mar/Mariana-Stick
+ExecStartPre=ifconfig wlan0 up
+ExecStartPre=nmcli radio wifi on
 ExecStartPre=-/usr/bin/git pull
 ExecStartPre=-/usr/bin/git pull
 ExecStartPre=-/usr/bin/git pull
 ExecStartPre=rfkill unblock all
-ExecStartPre=ifconfig wlan0 up
-ExecStartPre=nmcli radio wifi on
 ExecStart=/usr/bin/python3.12 /etc/mar/Mariana-Stick/wifihandler.py
 
 [Install]
