@@ -75,6 +75,8 @@ sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
 
+sudo nmcli connection delete preconfigured
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow in on usb0
