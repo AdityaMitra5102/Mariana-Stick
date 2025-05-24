@@ -14,7 +14,7 @@ sudo ln -sT $(which python3.12) /usr/bin/python3.12
 curl https://bootstrap.pypa.io/get-pip.py | python3.12
 sudo apt update
 sudo apt install -y --fix-broken
-sudo apt install python3.12-dev build-essential libffi-dev libssl-dev
+sudo apt install -y python3.12-dev build-essential libffi-dev libssl-dev
 sudo mkdir -p /etc/mar
 sudo touch /etc/mar/test
 chmod -R 777 /etc/mar
