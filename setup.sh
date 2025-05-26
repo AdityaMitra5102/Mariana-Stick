@@ -82,6 +82,8 @@ sudo ufw default allow outgoing
 sudo ufw allow in on usb0
 sudo ufw allow in on usb1
 sudo ufw allow in on br0
+sudo ufw allow from any to any port 1024:2048 proto udp
+sudo ufw allow out from any to any port 1024:2048 proto udp
 sudo ufw allow 22
 sudo ufw enable
 sudo ufw status
