@@ -55,6 +55,9 @@ def connect_wifi(ssid, password, interface="wlan0"):
     try:
         # Delete any existing connection for this SSID (optional, helps avoid conflicts)
         subprocess.run(["nmcli", "connection", "delete", ssid], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        if password is None:
+            password=''
         
         # Add and activate new wifi connection
         result = subprocess.run(
