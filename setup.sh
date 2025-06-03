@@ -75,7 +75,6 @@ sudo cp -f wifihandler.service /lib/systemd/system/wifihandler.service
 sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
 
-sudo nmcli connection delete preconfigured
 
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -87,5 +86,8 @@ sudo ufw allow out from any to any port 1024:2048 proto udp
 sudo ufw allow 22
 sudo ufw disable #I have no clue why UFW is conflicting with gadget mode
 sudo ufw status
+
+echo "Installation complete"
+sudo nmcli connection delete preconfigured
 
 sudo poweroff
