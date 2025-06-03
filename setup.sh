@@ -39,7 +39,7 @@ sudo cp -f mariana.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable mariana
 
-
+sudo sed -i 's/rootwait.*/rootwait/' /boot/firmware/cmdline.txt
 echo "dtoverlay=dwc2" | sudo tee -a /boot/firmware/config.txt
 echo "dwc2" | sudo tee -a /etc/modules
 echo "libcomposite" | sudo tee -a /etc/modules
