@@ -1,5 +1,7 @@
 # Mariana's Qubit On A Stick
 
+## DIY Tutorial: https://youtu.be/vqvY3UvPAhA
+
 # Use RPi OS Bookwarm. Older versions will not work. Go for Lite version since GUI is not needed.
 
 # USB Setup (Preferred)
