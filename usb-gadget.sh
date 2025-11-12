@@ -10,8 +10,8 @@ echo 0x0320 > bcdUSB # USB2
 echo 2 > bDeviceClass
 mkdir -p strings/0x409
 echo "fedcba9876543213" > strings/0x409/serialnumber
-echo "Ben Hardill" > strings/0x409/manufacturer
-echo "Display-Pi USB Device" > strings/0x409/product
+echo "Cryptane" > strings/0x409/manufacturer
+echo "Mariana Stick" > strings/0x409/product
 mkdir -p configs/c.1/strings/0x409
 echo "CDC" > configs/c.1/strings/0x409/configuration
 echo 250 > configs/c.1/MaxPower
