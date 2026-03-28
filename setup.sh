@@ -83,8 +83,11 @@ sudo ufw allow in on usb1
 sudo ufw allow in on br0
 sudo ufw allow from any to any port 1024:2048 proto udp
 sudo ufw allow out from any to any port 1024:2048 proto udp
-sudo ufw allow 22
-sudo ufw disable #I have no clue why UFW is conflicting with gadget mode
+sudo ufw allow 22 #Debug only
+sudo ufw allow 67
+sudo ufw allow 68
+sudo ufw allow 53
+sudo ufw disable #I have no clue why UFW is conflicting with gadget mode/ #Edit: Realized coz DHCP wasnt allowed in firewall before
 sudo ufw status
 
 echo "Installation complete"
