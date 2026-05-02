@@ -87,7 +87,7 @@ sudo ufw allow 22 #Debug only
 sudo ufw allow 67
 sudo ufw allow 68
 sudo ufw allow 53
-sudo ufw disable #I have no clue why UFW is conflicting with gadget mode/ #Edit: Realized coz DHCP wasnt allowed in firewall before
+#sudo ufw disable #I have no clue why UFW is conflicting with gadget mode/ #Edit: Realized coz DHCP wasnt allowed in firewall before
 sudo ufw status
 
 echo "Installation complete"
