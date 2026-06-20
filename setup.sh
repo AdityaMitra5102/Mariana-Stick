@@ -34,7 +34,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable mariana
 
 sudo sed -i 's/rootwait.*/rootwait/' /boot/firmware/cmdline.txt
-echo "dtoverlay=dwc2" | sudo tee -a /boot/firmware/config.txt
+echo "dtoverlay=dwc2,dr_mode=peripheral" | sudo tee -a /boot/firmware/config.txt
 echo "dwc2" | sudo tee -a /etc/modules
 echo "libcomposite" | sudo tee -a /etc/modules
 echo -n " modules-load=dwc2,libcomposite cfg80211.ieee80211_regdom=IN" | sudo tee -a /boot/firmware/cmdline.txt
