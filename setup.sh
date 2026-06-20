@@ -6,15 +6,10 @@ sudo apt install -y dnsmasq
 sudo apt install -y git
 sudo apt install -y ufw
 
-echo "deb [trusted=yes] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/ jammy main" | sudo tee /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-lunar.list
-sudo apt update
-sudo apt install -y python3.12
-
-sudo ln -sT $(which python3.12) /usr/bin/python3.12
-curl https://bootstrap.pypa.io/get-pip.py | python3.12
+curl https://bootstrap.pypa.io/get-pip.py | python3
 sudo apt update
 sudo apt install -y --fix-broken
-sudo apt install -y python3.12-dev build-essential libffi-dev libssl-dev
+sudo apt install -y python3-dev build-essential libffi-dev libssl-dev
 sudo mkdir -p /etc/mar
 sudo touch /etc/mar/test
 chmod -R 777 /etc/mar
@@ -25,7 +20,7 @@ rm -rf /etc/mar/Project-Mariana
 git clone https://github.com/AdityaMitra5102/Project-Mariana.git
 
 
-sudo python3.12 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
+sudo python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade
 
 sudo mkdir -p /root/Downloads/CargoShip
 sudo touch /root/Downloads/CargoShip/CargoShipActive
