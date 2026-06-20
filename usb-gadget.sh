@@ -19,8 +19,8 @@ echo 0x80 > configs/c.1/bmAttributes
  
 #ECM
 mkdir -p functions/ecm.usb0
-HOST="00:dc:c8:f7:75:15" # "HostPC"
-SELF="00:dd:dc:eb:6d:a1" # "BadUSB"
+HOST="00:dc:c8:f7:75:15"
+SELF="00:dd:dc:eb:6d:a1"
 echo $HOST > functions/ecm.usb0/host_addr
 echo $SELF > functions/ecm.usb0/dev_addr
 ln -s functions/ecm.usb0 configs/c.1/
