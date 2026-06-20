@@ -6,8 +6,7 @@ sudo apt install -y dnsmasq
 sudo apt install -y git
 sudo apt install -y ufw
 
-curl https://bootstrap.pypa.io/get-pip.py | python3
-sudo apt update
+sudo apt install -y python3-pip
 sudo apt install -y --fix-broken
 sudo apt install -y python3-dev build-essential libffi-dev libssl-dev
 sudo mkdir -p /etc/mar
