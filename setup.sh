@@ -85,6 +85,6 @@ sudo ufw allow 53
 sudo ufw status
 
 echo "Installation complete"
-sudo nmcli connection delete preconfigured
+#sudo nmcli connection delete preconfigured
 
 sudo poweroff
