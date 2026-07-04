@@ -7,6 +7,7 @@ dhcp-option=3
 leasefile-ro
 address=/.mariana/10.55.0.1
 address=/.cargo/10.55.0.1
+address=/.wifi/10.55.0.1
 address=/msftconnecttest.com/10.55.0.1
 address=/www.msftconnecttest.com/10.55.0.1
 address=/connectivitycheck.gstatic.com/10.55.0.1
