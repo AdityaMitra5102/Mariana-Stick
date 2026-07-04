@@ -83,6 +83,10 @@ sudo ufw allow in on usb1
 sudo ufw allow in on br0
 sudo ufw allow from any to any port 1024:2048 proto udp
 sudo ufw allow out from any to any port 1024:2048 proto udp
+sudo ufw allow 66
+sudo ufw allow 67
+sudo ufw allow 53
+sudo ufw allow 80
 sudo ufw allow 22
 sudo ufw disable #I have no clue why UFW is conflicting with gadget mode
 sudo ufw status
