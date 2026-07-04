@@ -90,4 +90,4 @@ sudo ufw status
 echo "Installation complete"
 sudo nmcli connection delete preconfigured
 
-sudo poweroff
+#sudo poweroff
