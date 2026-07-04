@@ -19,7 +19,7 @@ ExecStartPre=-/usr/bin/git pull
 ExecStartPre=-/usr/bin/git pull
 ExecStartPre=-/usr/bin/git pull
 ExecStartPre=-/usr/bin/git pull
-ExecStart=/usr/bin/python3.12 /etc/mar/Project-Mariana/proxyserver.py
+ExecStart=/usr/bin/python3 /etc/mar/Project-Mariana/proxyserver.py
 
 [Install]
 WantedBy=multi-user.target
