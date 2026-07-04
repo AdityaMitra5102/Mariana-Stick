@@ -2,9 +2,8 @@ sudo apt update
 #sudo apt -y upgrade
 #sudo rpi-update
 sudo apt install -y apache2
-sudo apt install -y dnsmasq
+#sudo apt install -y dnsmasq
 sudo apt install -y git
-sudo apt install -y ufw
 
 sudo apt install -y python3-pip
 sudo apt install -y --fix-broken
@@ -33,24 +32,10 @@ sudo cp -f mariana.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable mariana
 
-sudo sed -i 's/rootwait.*/rootwait/' /boot/firmware/cmdline.txt
-echo "dtoverlay=dwc2,dr_mode=peripheral" | sudo tee -a /boot/firmware/config.txt
-echo "dwc2" | sudo tee -a /etc/modules
-echo "libcomposite" | sudo tee -a /etc/modules
-echo -n " modules-load=dwc2,libcomposite cfg80211.ieee80211_regdom=IN" | sudo tee -a /boot/firmware/cmdline.txt
-
-sudo cp -f usb-gadget.sh /usr/local/sbin/usb-gadget.sh
-sudo chmod +x /usr/local/sbin/usb-gadget.sh
-sudo cp -f usbgadget.service /lib/systemd/system/usbgadget.service
-sudo systemctl daemon-reload
-sudo systemctl enable usbgadget.service
-
-sudo nmcli con add type bridge ifname br0
-sudo nmcli con add type bridge-slave ifname usb0 master br0
-sudo nmcli con add type bridge-slave ifname usb1 master br0
-sudo nmcli connection modify bridge-br0 ipv4.method manual ipv4.addresses 10.55.0.1/24
-sudo cp -f br0 /etc/dnsmasq.d/br0
-sudo touch /etc/mar/stickmode
+sudo mkdir -p /etc/NetworkManager/dnsmasq-shared.d
+sudo apt install -y rpi-usb-gadget
+sudo rpi-usb-gadget on
+sudo cp -f 92-dns.conf /etc/NetworkManager/dnsmasq-shared.d
 
 sudo a2enmod proxy
 sudo a2enmod proxy_http
@@ -70,21 +55,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
 
 
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow in on usb0
-sudo ufw allow in on usb1
-sudo ufw allow in on br0
-sudo ufw allow from any to any port 1024:2048 proto udp
-sudo ufw allow out from any to any port 1024:2048 proto udp
-sudo ufw allow 22 #Debug only
-sudo ufw allow 67
-sudo ufw allow 68
-sudo ufw allow 53
-#sudo ufw disable #I have no clue why UFW is conflicting with gadget mode/ #Edit: Realized coz DHCP wasnt allowed in firewall before
-sudo ufw status
-
 echo "Installation complete"
-#sudo nmcli connection delete preconfigured
 
-sudo reboot
+#sudo reboot
