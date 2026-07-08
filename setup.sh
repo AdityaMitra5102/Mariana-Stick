@@ -26,6 +26,8 @@ git clone https://github.com/AdityaMitra5102/Project-Mariana.git
 
 
 sudo python3 -m pip install -r /etc/mar/Project-Mariana/requirements.txt --break-system-package --upgrade --ignore-installed
+sudo python3 -m pip install gpiozero requests rpi-lgpio --break-system-package --upgrade --ignore-installed
+
 
 sudo mkdir -p /root/Downloads/CargoShip
 sudo touch /root/Downloads/CargoShip/CargoShipActive
