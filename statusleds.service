@@ -1,6 +1,5 @@
 [Unit]
-Description=WifiHandler
-After=network.target
+Description=StatusHandler
 StartLimitIntervalSec=0
 
 [Service]
