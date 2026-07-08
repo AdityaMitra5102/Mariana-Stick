@@ -78,6 +78,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable wifihandler.service
 
 
+sudo cp -f statusleds.service /lib/systemd/system/statusleds.service
+sudo systemctl daemon-reload
+sudo systemctl enable statusleds.service
+
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow in on usb0
