@@ -27,8 +27,8 @@ from gpiozero import PWMLED
 # Configuration
 # ---------------------------------------------------------------------------
 
-POLL_INTERVAL_SEC = 3
-HTTP_TIMEOUT_SEC = 1.5
+POLL_INTERVAL_SEC = 1
+HTTP_TIMEOUT_SEC = 3
 
 # Brightness (0.0 - 1.0). Kept low since no resistors are used on the LEDs.
 BRIGHTNESS = 0.25
